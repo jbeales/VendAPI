@@ -293,6 +293,31 @@ class VendAPI
 
         return new VendSale($result->register_sale, $this);
     }
+
+	/**
+	 * Get all taxes
+	 *
+	 * @return array
+	 */
+	public function getTaxes()
+	{
+		return $this->apiGetTaxes();
+	}
+
+	/**
+	 * @param $path
+	 * @return array
+	 * @throws Exception
+	 */
+	private function apiGetTaxes()
+	{
+		$result = $this->_request('/api/2.0/taxes');
+		if (!isset($result->data) || !is_array($result->data)) {
+			throw new Exception("Error: Unexpected result for request");
+		}
+		return $result->data;
+	}
+
     /**
      * make request to the vend api
      *

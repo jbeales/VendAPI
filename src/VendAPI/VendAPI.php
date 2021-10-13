@@ -17,10 +17,13 @@
 namespace VendAPI;
 
 spl_autoload_register(function ($class) {
-    list($namespace, $classname) = explode('\\', $class);
-    if ($namespace == 'VendAPI') {
-        include rtrim(__DIR__, '/').'/'.$classname . '.php';
-    }
+	$classpath = explode('\\', $class);
+	if( count($classpath) > 1 ) {
+		list($namespace, $classname) = explode('\\', $class);
+		if ($namespace == 'VendAPI') {
+			include rtrim(__DIR__, '/').'/'.$classname . '.php';
+		}
+	}
 });
 
 class VendAPI
@@ -126,7 +129,7 @@ class VendAPI
 
         return $this->apiGetRegisters($path);
     }
-    
+
     /**
      * Get all sales
      *
